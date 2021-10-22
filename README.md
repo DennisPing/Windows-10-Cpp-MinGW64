@@ -1,16 +1,16 @@
 # How to get Cmake and Make to Work Natively in Windows 10
 
-Dennis Ping
+Author: Dennis Ping
 
 **Important Note: You will need to run most commands as an Administrator in the Command Prompt. Windows is pretty strict.**
 
-## 1. Install Chocolately
+## :one: Install Chocolately
 
 [Official Instructions](https://chocolatey.org/install)
 
 ### Why? We need a package manager
 
-Linux has this by default
+Linux has apt-get by default
 ```
 sudo apt-get <packageName>
 ```
@@ -25,17 +25,17 @@ Windows has Chocolately
 choco install <packageName>
 ```
 
-## 1.5 Recommend you install Windows Terminal and Powershell
+## :one:.:five: Recommend you install Windows Terminal and Powershell
 
 [Official Windows Terminal Instructions](https://docs.microsoft.com/en-us/windows/terminal/install)
 
-The default Command Prompt is shit. Please stop using it on your personal machine. It's like trying to build a house without power tools. We have technology.
+The default Command Prompt is shit. :poop: Please stop using it on your personal machine. It's like trying to build a house without power tools. We have technology.
 
 [Official Powershell Instructions](https://docs.microsoft.com/en-us/powershell/scripting/install/installing-powershell-on-windows?view=powershell-7.1)
 
 Set your default shell to Powershell. Don't use "Powershell Core"... that's a weird Microsoft project to try to get Linux and Mac users to switch to Powershell.
 
-## 2. Install GCC
+## :two: Install GCC (aka. MinGW)
 
 **Every choco install needs to be run as an Administrator".**
 
@@ -45,7 +45,7 @@ MinGW-64 is the Windows equivalent of GCC. It even comes with the gdb debugger!
 choco install mingw
 ```
 
-## 3. Install Cmake and Make
+## :three: Install Cmake and Make
 
 ```
 choco install cmake
@@ -68,7 +68,7 @@ Add `cmake` as a command in your Environment Variables. There is a bug in the in
 
 Restart your Terminal and run as Administrator to refresh the background variables and commands.
 
-## 4. Download and Install SFML
+## :four: Download and Install SFML
 
 [SFML Downloads Page](https://www.sfml-dev.org/download/sfml/2.5.1/)
 
@@ -84,7 +84,7 @@ Restart your Terminal and run as Administrator to refresh the background variabl
 
 Restart your Terminal and run as Administrator to refresh the background variables and commands.
 
-## 5. Configure your IDE
+## :five: Configure your IDE
 
 1. I use Visual Studio Code, so you will need to find the equivalent in your IDE.
 2. Install the C/C++ extension (by Microsoft) because we want all the coding power we can get.
@@ -105,7 +105,7 @@ Restart your Terminal and run as Administrator to refresh the background variabl
 8. Here we have 2 include paths. (1) The project's include and (2) SFML's include. If you eventually have more external libraries, add them in "Include Path" as a new line.
 9. Your IDE IntelliSense should now be happy. The red lines should go away because now it can find the .hpp files.
 
-## 6. Write your CMakeLists.txt
+## :six: Write your CMakeLists.txt
 
 We are not going to use any absolute file paths. This usually leads to errors because the compiler can't find stuff.
 
@@ -128,15 +128,15 @@ add_executable(${PROJECT_NAME} ./src/App.cpp ./src/Draw.cpp ./src/Command.cpp ./
 target_link_libraries(${PROJECT_NAME} sfml-graphics sfml-window sfml-system)
 ```
 
-## 7. Copy/paste all the MinGW-64 .dll files into your `/bin` folder.
+## :seven: Copy/paste all the MinGW-64 .dll files into your `/bin` folder.
   - For some reason, `make` cannot automatically find the GCC compiler's .dll files.
   - So lets dump all the .dll files in this `/bin` folder.
   - My GCC .dll files were here: `C:\ProgramData\chocolatey\lib\mingw\tools\install\mingw64\bin`
 
-## 8. Build your Project
+## :eight: Build your Project
 
   - Go into your bin folder
   - Type `cmake ..`
   - Type `make`
-  - Pray that it works
+  - Pray that it works :pray:
   - Try running the `App.exe`
