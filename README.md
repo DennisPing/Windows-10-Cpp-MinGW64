@@ -37,7 +37,7 @@ Set your default shell to Powershell. Don't use "Powershell Core"... that's a we
 
 ## :three: Install GCC (aka. MinGW)
 
-**Every choco install needs to be run as an Administrator".**
+**Note: You need to be running Terminal as an Administrator in order to do choco install.**
 
 MinGW-64 is the Windows equivalent of GCC. It even comes with the gdb debugger!
 
