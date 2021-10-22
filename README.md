@@ -106,7 +106,7 @@ Restart your Terminal and run as Administrator to refresh the background variabl
     | IntelliSense mode  | windows-gcc-x64                                |
     | Include Path       | ${workspaceFolder}/**                          |
     |                    | C:\Users\yourname\Documents\SFML-2.5.1\include |
-    | C++ standard       | C++ standard                                   |
+    | C++ standard       | C++ 17                                   |
 
 8. Here we have 2 include paths. (1) The project's include and (2) SFML's include. If you eventually have more external libraries, add them in "Include Path" as a new line.
 9. Your IDE IntelliSense should now be happy. The red lines should go away because now it can find the .hpp files.
