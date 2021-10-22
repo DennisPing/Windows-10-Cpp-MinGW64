@@ -23,11 +23,11 @@ Windows has Chocolately
 choco install <packageName>
 ```
 
-## :two: Recommend you install Windows Terminal and Powershell
+## :two: Recommend you install Windows Terminal and Powershell (Optional)
 
 [Official Windows Terminal Instructions](https://docs.microsoft.com/en-us/windows/terminal/install)
 
-The default Command Prompt is shit. :poop: Please stop using it on your personal machine. It's like trying to build a house without power tools. We have technology.
+The default Command Prompt sucks. :poop: It's like trying to build a house without power tools. We have technology.
 
 [Official Powershell Instructions](https://docs.microsoft.com/en-us/powershell/scripting/install/installing-powershell-on-windows?view=powershell-7.1)
 
@@ -71,7 +71,7 @@ Restart your Terminal and run as Administrator to refresh the background variabl
 [SFML Downloads Page](https://www.sfml-dev.org/download/sfml/2.5.1/)
 
 1. Download GCC 7.3.0 MinGW (DW2) - 32-bit
-    - Place the folder somewhere safe like `C:\Users\yourname\Documents\`. Don't lose this folder!
+    - Place this SFML folder somewhere safe like `C:\Users\yourname\Documents\`. Don't lose this folder!
     - We don't want the Visual C++ versions.
     - The 32-bit version worked on my Windows 10 64-bit computer.
 
@@ -147,6 +147,6 @@ target_link_libraries(${PROJECT_NAME} sfml-graphics sfml-window sfml-system)
   - Pray that it works :pray:
   - Try running the `App.exe`
 
-## :clapper: Demo Execute App
+## :clapper: Demo of Native Windows Build
 
-TBD
+**https://streamable.com/jaevms**
