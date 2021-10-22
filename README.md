@@ -71,20 +71,22 @@ Restart your Terminal and run as Administrator to refresh the background variabl
 [SFML Downloads Page](https://www.sfml-dev.org/download/sfml/2.5.1/)
 
 1. Download GCC 7.3.0 MinGW (DW2) - 32-bit
-    - Place the folder somewhere safe like `C:\Users\yourname\Documents\`.
+    - Place the folder somewhere safe like `C:\Users\yourname\Documents\`. Don't lose this folder!
     - We don't want the Visual C++ versions.
     - The 32-bit version worked on my Windows 10 64-bit computer.
 
-2. Download all files from this Github repository: https://github.com/jeanmimib/sfml-mingw64 
-3. In the terminal, go into this /sfml-mingw64 folder
-4. Type this command. It will create a nupkg file.
-    ```
-    choco pack
-    ```
-5. Type this command. It will install SFML using the GCC (MinGW). The dot means "here", and since you're in the same folder as the nupkg file, choco will find it.
-    ```
-    choco install sfml-mingw64 -s .
-    ```
+2. Use this Github code to install the SFML libraries into you computer.
+
+    * Download all files from this Github repository: https://github.com/jeanmimib/sfml-mingw64 and place them into your SFML folder.
+    * In the terminal, go into your SFML folder.
+    * Type this command. It will create a nupkg file.
+        ```
+        choco pack
+        ```
+    * Type this command. It will install SFML using the GCC (MinGW). The dot means "here", and since you're in the same folder as the nupkg file, choco will find it.
+        ```
+        choco install sfml-mingw64 -s .
+        ```
 
 Restart your Terminal and run as Administrator to refresh the background variables and commands.
 
