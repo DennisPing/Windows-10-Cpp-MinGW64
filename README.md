@@ -15,7 +15,7 @@ sudo apt-get <packageName>
 
 Mac has Homebrew
 ```
-brew install <packageName>`
+brew install <packageName>
 ```
 
 Windows has Chocolately
@@ -33,7 +33,7 @@ The default Command Prompt is shit. :poop: Please stop using it on your personal
 
 Set your default shell to Powershell. Don't use "Powershell Core"... that's a weird Microsoft project to try to get Linux and Mac users to switch to Powershell.
 
-## :three: Install GCC (aka. MinGW)
+## :three: Install the GCC Compiler (aka. MinGW)
 
 **Note: You need to be running Terminal as an Administrator in order to do choco install.**
 
@@ -77,8 +77,14 @@ Restart your Terminal and run as Administrator to refresh the background variabl
 
 2. Download all files from this Github repository: https://github.com/jeanmimib/sfml-mingw64 
 3. In the terminal, go into this /sfml-mingw64 folder
-4. Type `choco pack`. This will create a nupkg file.
-5. Type `choco install sfml-mingw64 -s .` The dot means "here" and since you're in the same folder as the nupkg file, choco will find it.
+4. Type this command. It will create a nupkg file.
+    ```
+    choco pack
+    ```
+5. Type this command. It will install SFML using the GCC (MinGW). The dot means "here", and since you're in the same folder as the nupkg file, choco will find it.
+    ```
+    choco install sfml-mingw64 -s .
+    ```
 
 Restart your Terminal and run as Administrator to refresh the background variables and commands.
 
@@ -126,14 +132,14 @@ add_executable(${PROJECT_NAME} ./src/App.cpp ./src/Draw.cpp ./src/Command.cpp ./
 target_link_libraries(${PROJECT_NAME} sfml-graphics sfml-window sfml-system)
 ```
 
-## :eight: Copy/paste all the MinGW-64 .dll files into your `/bin` folder.
+## :eight: Copy/paste all the MinGW-64 .dll files into your project `/bin` folder.
   - For some reason, `make` cannot automatically find the GCC compiler's .dll files.
-  - So lets dump all the .dll files in this `/bin` folder.
+  - So lets copy/paste all the .dll files in our project `/bin` folder.
   - My GCC .dll files were here: `C:\ProgramData\chocolatey\lib\mingw\tools\install\mingw64\bin`
 
 ## :nine: Build your Project
 
-  - Go into your bin folder
+  - Go into your project `/bin` folder
   - Type `cmake ..`
   - Type `make`
   - Pray that it works :pray:
