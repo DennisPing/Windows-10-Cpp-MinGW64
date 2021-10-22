@@ -1,7 +1,5 @@
 # How to get Cmake and Make to Work Natively in Windows 10
 
-Author: Dennis Ping
-
 **Important Note: You will need to run most commands as an Administrator in the Command Prompt. Windows is pretty strict.**
 
 ## :one: Install Chocolately
@@ -39,7 +37,7 @@ Set your default shell to Powershell. Don't use "Powershell Core"... that's a we
 
 **Note: You need to be running Terminal as an Administrator in order to do choco install.**
 
-MinGW-64 is the Windows equivalent of GCC. It even comes with the gdb debugger!
+MinGW-64 is the Windows equivalent of GCC. It even comes with the gdb debugger! :heart_eyes:
 
 ```
 choco install mingw
