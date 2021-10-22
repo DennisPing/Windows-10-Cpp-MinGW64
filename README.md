@@ -25,7 +25,7 @@ Windows has Chocolately
 choco install <packageName>
 ```
 
-## :one:.:five: Recommend you install Windows Terminal and Powershell
+## :two: Recommend you install Windows Terminal and Powershell
 
 [Official Windows Terminal Instructions](https://docs.microsoft.com/en-us/windows/terminal/install)
 
@@ -35,7 +35,7 @@ The default Command Prompt is shit. :poop: Please stop using it on your personal
 
 Set your default shell to Powershell. Don't use "Powershell Core"... that's a weird Microsoft project to try to get Linux and Mac users to switch to Powershell.
 
-## :two: Install GCC (aka. MinGW)
+## :three: Install GCC (aka. MinGW)
 
 **Every choco install needs to be run as an Administrator".**
 
@@ -45,7 +45,7 @@ MinGW-64 is the Windows equivalent of GCC. It even comes with the gdb debugger!
 choco install mingw
 ```
 
-## :three: Install Cmake and Make
+## :four: Install Cmake and Make
 
 ```
 choco install cmake
@@ -68,7 +68,7 @@ Add `cmake` as a command in your Environment Variables. There is a bug in the in
 
 Restart your Terminal and run as Administrator to refresh the background variables and commands.
 
-## :four: Download and Install SFML
+## :five: Download and Install SFML
 
 [SFML Downloads Page](https://www.sfml-dev.org/download/sfml/2.5.1/)
 
@@ -84,7 +84,7 @@ Restart your Terminal and run as Administrator to refresh the background variabl
 
 Restart your Terminal and run as Administrator to refresh the background variables and commands.
 
-## :five: Configure your IDE
+## :six: Configure your IDE
 
 1. I use Visual Studio Code, so you will need to find the equivalent in your IDE.
 2. Install the C/C++ extension (by Microsoft) because we want all the coding power we can get.
@@ -105,7 +105,7 @@ Restart your Terminal and run as Administrator to refresh the background variabl
 8. Here we have 2 include paths. (1) The project's include and (2) SFML's include. If you eventually have more external libraries, add them in "Include Path" as a new line.
 9. Your IDE IntelliSense should now be happy. The red lines should go away because now it can find the .hpp files.
 
-## :six: Write your CMakeLists.txt
+## :seven: Write your CMakeLists.txt
 
 We are not going to use any absolute file paths. This usually leads to errors because the compiler can't find stuff.
 
@@ -128,12 +128,12 @@ add_executable(${PROJECT_NAME} ./src/App.cpp ./src/Draw.cpp ./src/Command.cpp ./
 target_link_libraries(${PROJECT_NAME} sfml-graphics sfml-window sfml-system)
 ```
 
-## :seven: Copy/paste all the MinGW-64 .dll files into your `/bin` folder.
+## :eight: Copy/paste all the MinGW-64 .dll files into your `/bin` folder.
   - For some reason, `make` cannot automatically find the GCC compiler's .dll files.
   - So lets dump all the .dll files in this `/bin` folder.
   - My GCC .dll files were here: `C:\ProgramData\chocolatey\lib\mingw\tools\install\mingw64\bin`
 
-## :eight: Build your Project
+## :nine: Build your Project
 
   - Go into your bin folder
   - Type `cmake ..`
