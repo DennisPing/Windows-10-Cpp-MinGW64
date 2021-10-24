@@ -64,7 +64,32 @@ Add `cmake` as a command in your Environment Variables. There is a bug in the in
     - You will know this is the correct bin folder if it contains `cmake.exe`
 6. Click `OK` and `OK` to finish
 
-Restart your Terminal and run as Administrator to refresh the background variables and commands.
+Check that MinGW, Cmake, and Make are installed correctly in the Terminal:
+```
+gcc --version
+>> gcc.exe (MinGW-W64 x86_64-posix-seh, built by Brecht Sanders) 11.2.0
+
+cmake --version
+>> cmake version 3.21.3
+
+make --version
+>> GNU Make 4.3
+   Built for Windows32
+```
+
+You can even check that other GNU tools from MinGW are installed:
+```
+grep --version
+>> grep (GNU grep) 3.0
+
+gdb --version
+>> GNU gdb (GDB for MinGW-W64 x86_64, built by Brecht Sanders) 10.2
+
+bash --version
+>> GNU bash, version 5.0.17(1)-release (x86_64-pc-linux-gnu)
+```
+
+Refresh your Terminal environment variables with `refreshenv`
 
 ## :five: Download and Install SFML
 
@@ -75,10 +100,16 @@ Restart your Terminal and run as Administrator to refresh the background variabl
     - We don't want the Visual C++ versions.
     - The 32-bit version worked on my Windows 10 64-bit computer.
 
-2. Use this Github code to install the SFML libraries into you computer.
+2. We do NOT want to manually tell the GCC compiler where to find our SFML library. Doing this will suck because GCC and Cmake will not be able to find SFML by itself.
+3. We WANT to add this SFML library as a `choco` package into our computer.
+4. Use this Github code to help add SFML as a `choco` package.
 
-    * Download all files from this Github repository: https://github.com/jeanmimib/sfml-mingw64 and place them into your SFML folder.
-    * In the terminal, go into your SFML folder.
+    * Download all files from this Github repository: https://github.com/jeanmimib/sfml-mingw64
+        ```
+        git clone https://github.com/jeanmimib/sfml-mingw64.git
+        ```
+    * Place this folder into a temporary place like `C:\Users\yourname\Documents\`. You can delete this folder afterwards.
+    * In the terminal, go into this temporary `sfml-mingw64` folder.
     * Type this command. It will create a nupkg file.
         ```
         choco pack
@@ -87,18 +118,35 @@ Restart your Terminal and run as Administrator to refresh the background variabl
         ```
         choco install sfml-mingw64 -s .
         ```
+5. Check that all `choco` packages are installed correctly.
+    ```
+    choco list --local-only
+    >>  Chocolatey v0.11.2
+        cmake 3.21.3
+        cmake.install 3.21.3
+        make 4.3
+        mingw 11.2.0
+        sfml-mingw64 2.5.1  
+    ```
 
-Restart your Terminal and run as Administrator to refresh the background variables and commands.
+Refresh your Terminal environment variables with `refreshenv`
 
-## :six: Configure your IDE
+## :six: Configure your IDE with working IntelliSense
 
-1. I use Visual Studio Code, so you will need to find the equivalent in your IDE.
-2. Install the C/C++ extension (by Microsoft) because we want all the coding power we can get.
-3. Open up your project.
-4. Open up the command palette with `ctrl + shift + p`.
-5. Type `edit configuration`.
-6. Select `edit configuration (ui)`.
-7. Change the following configurations:
+1. I use Visual Studio Code (VS Code), so you will need to find the equivalent in your IDE.
+2. Open up your VS Code such that the working folder is your desired Project Home.
+   - You should see the `include` and `src` folders.
+   - There are no parent folders above this folder!
+
+    ![VS Code Project Home](./images/vs-code-project-home.jpg)
+3. Install the C/C++ extension (by Microsoft) because we want all the coding power we can get.
+4. Install the Cmake Tools extension (by Microsoft) if you want. This is optional because we have already installed Cmake into our system. This Cmake extension only works inside VS Code and automatically builds your project when you save your files. This extension does not `make` an `.exe` file!
+5. :bangbang: Because I have the Cmake tools extension, it generates a `/build` folder for me which is the same thing as `/bin`. :bangbang:
+6. Open up the command palette with `ctrl + shift + p`.
+7. Select `edit configuration (ui)` in the search bar.
+   
+   ![edit configuration ui](./images/edit-configurations.jpg)
+8. Change the following configurations:
 
     | Configuration Name | Setting                                        |
     |--------------------|------------------------------------------------|
@@ -106,10 +154,10 @@ Restart your Terminal and run as Administrator to refresh the background variabl
     | IntelliSense mode  | windows-gcc-x64                                |
     | Include Path       | ${workspaceFolder}/**                          |
     |                    | C:\Users\yourname\Documents\SFML-2.5.1\include |
-    | C++ standard       | C++ 17                                   |
+    | C++ standard       | C++ 17                                         |
 
-8. Here we have 2 include paths. (1) The project's include and (2) SFML's include. If you eventually have more external libraries, add them in "Include Path" as a new line.
-9. Your IDE IntelliSense should now be happy. The red lines should go away because now it can find the .hpp files.
+9.  Here we have 2 include paths. (1) The project's include and (2) SFML's include that you stored in a safe place. If you eventually have more external libraries, add them in "Include Path" as a new line.
+10. Your IDE IntelliSense should now be happy. The red lines should go away because now it can find the .hpp files.
 
 ## :seven: Write your CMakeLists.txt
 
@@ -134,16 +182,23 @@ add_executable(${PROJECT_NAME} ./src/App.cpp ./src/Draw.cpp ./src/Command.cpp ./
 target_link_libraries(${PROJECT_NAME} sfml-graphics sfml-window sfml-system)
 ```
 
-## :eight: Copy/paste all the MinGW-64 .dll files into your project `/bin` folder.
+## :eight: Copy/paste all the MinGW-64 .dll files into your project `/bin` or `/build` folder.
   - For some reason, `make` cannot automatically find the GCC compiler's .dll files.
   - So lets copy/paste all the .dll files in our project `/bin` folder.
   - My GCC .dll files were here: `C:\ProgramData\chocolatey\lib\mingw\tools\install\mingw64\bin`
+  - Use the search bar to filter by `.dll`
+  
+    ![dll files](./images/mingw-dll-files.jpg)
+
+  - Copy/paste the .dll files into your project's `/bin` folder so that `make` can find everything it wants.
+
+    ![VS Code Project Home](./images/vs-code-project-home-arrow.jpg)
 
 ## :nine: Build your Project
 
-  - Go into your project `/bin` folder
-  - Type `cmake ..`
-  - Type `make`
+  - Go into your project `/bin` or `/build` folder in the Terminal
+  - Type `cmake ..` in the Terminal
+  - Type `make` in the Terminal
   - Pray that it works :pray:
   - Try running the `App.exe`
 
