@@ -1,6 +1,8 @@
 # How to get Cmake and Make to Work Natively in Windows 10
 
-**Important Note: You will need to run most commands as an Administrator in the Command Prompt. Windows is pretty strict.**
+:rocket: **End goal: To create the same developer setup as Mac and Linux without having to rely on proprietary Microsoft Visual Studio (MSVC).**
+
+**Note: You will need to run most commands as an Administrator in the Command Prompt.**
 
 ## :one: Install Chocolately
 
@@ -33,11 +35,14 @@ The default Command Prompt sucks. :poop: It's like trying to build a house witho
 
 Set your default shell to Powershell. Don't use "Powershell Core"... that's a weird Microsoft project to try to get Linux and Mac users to switch to Powershell.
 
-## :three: Install the GCC Compiler (aka. MinGW)
+## :three: Install MinGW (GCC and G++ compiler)
 
 **Note: You need to be running Terminal as an Administrator in order to do choco install.**
 
-MinGW-64 is the Windows equivalent of GCC. It even comes with the gdb debugger! :heart_eyes:
+MinGW-64 is the Windows equivalent of GCC (for C) and G++ (for C++). It even comes with the gdb debugger! :heart_eyes:
+
+1. GCC :arrow_right: GNU C Compiler 
+2. G++ :arrow_right: GNU C++ Compiler
 
 ```
 choco install mingw
@@ -66,15 +71,16 @@ Add `cmake` as a command in your Environment Variables. There is a bug in the in
 
 Check that MinGW, Cmake, and Make are installed correctly in the Terminal:
 ```
-gcc --version
->> gcc.exe (MinGW-W64 x86_64-posix-seh, built by Brecht Sanders) 11.2.0
+g++ --version
+>>  g++.exe (MinGW-W64 x86_64-posix-seh, built by Brecht Sanders) 11.2.0
+    Copyright (C) 2021 Free Software Foundation, Inc.
 
 cmake --version
->> cmake version 3.21.3
+>>  cmake version 3.21.3
 
 make --version
->> GNU Make 4.3
-   Built for Windows32
+>>  GNU Make 4.3
+    Built for Windows32
 ```
 
 You can even check that other GNU tools from MinGW are installed:
@@ -87,6 +93,13 @@ gdb --version
 
 bash --version
 >> GNU bash, version 5.0.17(1)-release (x86_64-pc-linux-gnu)
+```
+
+If you forget where G++ is installed, use this:
+
+```
+which g++
+>>  /c/ProgramData/chocolatey/bin/g++
 ```
 
 Refresh your Terminal environment variables with `refreshenv`
@@ -150,7 +163,7 @@ Refresh your Terminal environment variables with `refreshenv`
 
     | Configuration Name | Setting                                        |
     |--------------------|------------------------------------------------|
-    | Compiler Path      | C:/ProgramData/chocolatey/bin/gcc.exe          |
+    | Compiler Path      | C:/ProgramData/chocolatey/bin/g++.exe          |
     | IntelliSense mode  | windows-gcc-x64                                |
     | Include Path       | ${workspaceFolder}/**                          |
     |                    | C:\Users\yourname\Documents\SFML-2.5.1\include |
@@ -182,17 +195,34 @@ add_executable(${PROJECT_NAME} ./src/App.cpp ./src/Draw.cpp ./src/Command.cpp ./
 target_link_libraries(${PROJECT_NAME} sfml-graphics sfml-window sfml-system)
 ```
 
-## :eight: Copy/paste all the MinGW-64 .dll files into your project `/bin` or `/build` folder.
-  - For some reason, `make` cannot automatically find the GCC compiler's .dll files.
-  - So lets copy/paste all the .dll files in our project `/bin` folder.
-  - My GCC .dll files were here: `C:\ProgramData\chocolatey\lib\mingw\tools\install\mingw64\bin`
-  - Use the search bar to filter by `.dll`
-  
+## :eight: Link the MinGW64 .dll libraries to your project
+
+There are two ways to link .dll libraries in Windows 10.
+
+### Option 1: You want to distribute the .exe program.
+
+If you want to distribute a prebuilt .exe program, you should include the .dll libraries within the program files. This way, the user does not need to go find the .dll libraries themselves.
+
+1. Copy/paste all the MinGW .dll files into your project `/bin` or `/build` folder which contains the prebuilt .exe program.
+2. For example, my .dll file location is: `C:\ProgramData\chocolatey\lib\mingw\tools\install\mingw64\bin`.
+3. Use the search bar to filter by `.dll` and copy all.
+   
     ![dll files](./images/mingw-dll-files.jpg)
-
-  - Copy/paste the .dll files into your project's `/bin` folder so that `make` can find everything it wants.
-
+4. Paste `.dll` files
+   
     ![VS Code Project Home](./images/vs-code-project-home-arrow.jpg)
+
+### Option 2: You want to build the .exe program as a developer.
+
+If you are a developer, you should let your computer automatically find the necessary `.dll` so that you don't have to copy/paste `.dll` every time to work on a new project.
+
+1. Add the folder containing all the `.dll` libraries into your system PATH variable.
+2. Go into Environment Variables again. Edit the Path variable.
+   
+   ![env-variables](./images/env-variables.jpg)
+3. Add the location for MinGW64 .dll folder into your PATH variable. For example, my location is: `C:\ProgramData\chocolatey\lib\mingw\tools\install\mingw64\bin`.
+   
+   ![new-path](./images/new-path.jpg)
 
 ## :nine: Build your Project
 
