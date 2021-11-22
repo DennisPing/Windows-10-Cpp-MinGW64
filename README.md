@@ -37,8 +37,6 @@ Set your default shell to Powershell. Don't use "Powershell Core"... that's a we
 
 ## :three: Install MinGW (GCC and G++ compiler)
 
-**Note: You need to be running Terminal as an Administrator in order to do choco install.**
-
 MinGW-64 is the Windows equivalent of GCC (for C) and G++ (for C++). It even comes with the gdb debugger! :heart_eyes:
 
 1. GCC :arrow_right: GNU C Compiler 
@@ -108,12 +106,12 @@ Refresh your Terminal environment variables with `refreshenv`
 
 [SFML Downloads Page](https://www.sfml-dev.org/download/sfml/2.5.1/)
 
-1. Download GCC 7.3.0 MinGW (DW2) - 32-bit
+1. Download GCC 7.3.0 MinGW (SEH) - 64-bit
     - Place this SFML folder somewhere safe like `C:\Users\yourname\Documents\`. Don't lose this folder!
     - We don't want the Visual C++ versions.
-    - The 32-bit version worked on my Windows 10 64-bit computer.
+    - The 32-bit version should work as well if you want to use that instead.
 
-2. We do NOT want to manually tell the GCC compiler where to find our SFML library. Doing this will suck because GCC and Cmake will not be able to find SFML by itself.
+2. We do NOT want to manually tell the GCC/G++ compiler where to find our SFML library. Doing this will suck because GCC/G++ and Cmake will not be able to find SFML by itself.
 3. We WANT to add this SFML library as a `choco` package into our computer.
 4. Use this Github code to help add SFML as a `choco` package.
 
@@ -127,7 +125,7 @@ Refresh your Terminal environment variables with `refreshenv`
         ```
         choco pack
         ```
-    * Type this command. It will install SFML using the GCC (MinGW). The dot means "here", and since you're in the same folder as the nupkg file, choco will find it.
+    * Type this command. It will install SFML as a choco package that MingGW can easily find. The dot means "here", and since you're in the same folder as the nupkg file, choco will find it.
         ```
         choco install sfml-mingw64 -s .
         ```
