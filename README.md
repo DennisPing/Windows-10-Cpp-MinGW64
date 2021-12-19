@@ -1,4 +1,4 @@
-# How to get Cmake and Make to Work Natively in Windows 10
+# How to setup C++, Cmake and Make to Work Natively in Windows 10 using MinGW
 
 :rocket: **End goal: To create the same developer setup as Mac and Linux without having to rely on proprietary Microsoft Visual Studio (MSVC).**
 
