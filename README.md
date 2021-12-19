@@ -242,3 +242,9 @@ If you are a developer, you should let your computer automatically find the nece
 ## :clapper: Demo of Native Windows Build
 
 **https://streamable.com/jaevms**
+
+## Help! It doesn't work
+
+  - Restart your computer. Seriously, try it.
+  - Delete the VSCode settings (in the folder called `.vscode`), restart VSCode, and re-apply the settings.
+  - Windows is stubborn, so restart anything you can think of.
