@@ -199,7 +199,7 @@ There are two ways to link .dll libraries in Windows 10.
 
 ### Option 1: You want to distribute the .exe program.
 
-If you want to distribute a prebuilt .exe program, you should include the .dll libraries within the program files. This way, the user does not need to go find the .dll libraries themselves.
+If you want to distribute a prebuilt .exe program, you should include the .dll libraries within the program files. Otherwise, a normal user will never be able to find & link the .dll libraries. You either provide all the necessary .dll  in one package, or you create a Windows installer (lmao).
 
 1. Copy/paste all the MinGW .dll files into your project `/bin` or `/build` folder which contains the prebuilt .exe program.
 2. For example, my .dll file location is: `C:\ProgramData\chocolatey\lib\mingw\tools\install\mingw64\bin`.
@@ -225,10 +225,19 @@ If you are a developer, you should let your computer automatically find the nece
 ## :nine: Build your Project
 
   - Go into your project `/bin` or `/build` folder in the Terminal
-  - Type `cmake ..` in the Terminal
+  - Type `cmake -G "MinGW Makefiles ..` in the Terminal
+  - This will **generate** the **makefiles** for the MinGW compiler
   - Type `make` in the Terminal
+  - This will build your executible
   - Pray that it works :pray:
   - Try running the `App.exe`
+  - Extra Notes:
+    - It is good practice to build outside of your source directory. This is why we tell cmake to target one directory up (..)
+    - After you have ran `cmake -G "MinGW Makefiles ..` one time, cmake will remember that you are using MinGW
+    - So the next time you re-compile, you can just type `cmake ..`
+    - If you delete your makefiles, you will need to re-generate them
+  - VSCode Notes:
+    - The VSCode cmake extension can auto generate the makefiles for you if you set it up correctly in the configuration (see step 6 above). It generates each time you hit save.
 
 ## :clapper: Demo of Native Windows Build
 
