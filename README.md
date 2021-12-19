@@ -233,9 +233,8 @@ If you are a developer, you should let your computer automatically find the nece
   - Try running the `App.exe`
   - Extra Notes:
     - It is good practice to build outside of your source directory. This is why we tell cmake to target one directory up (..)
-    - After you have ran `cmake -G "MinGW Makefiles ..` one time, cmake will remember that you are using MinGW
-    - So the next time you re-compile, you can just type `cmake ..`
-    - If you delete your makefiles, you will need to re-generate them
+    - After you run `cmake -G "MinGW Makefiles ..` one time, cmake will remember that you are using MinGW. So the next time you re-compile, you can just type `cmake ..`
+    - If you ever delete your makefiles, you will need to re-generate them
   - VSCode Notes:
     - The VSCode cmake extension can auto generate the makefiles for you if you set it up correctly in the configuration (see step 6 above). It generates each time you hit save.
 
